@@ -1,0 +1,109 @@
+.menu-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 20px;
+  z-index: 1;
+  cursor: pointer;
+  @include transition-ease;
+
+  &__burger {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    width: 28px;
+    height: 3px;
+    background-color: set-text-color($primary-color);
+    @include transition-ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      width: 28px;
+      height: 3px;
+      background-color: set-text-color($primary-color);
+      @include transition-ease;
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      width: 20px;
+      height: 3px;
+      background-color: set-text-color($primary-color);
+      @include transition-ease;
+    }
+
+    &.open {
+      transform: rotate(720deg);
+      background-color: transparent;
+
+      &::before {
+        transform: rotate(45deg) translate(5px, 8px);
+      }
+      &::after {
+        width: 28px;
+        transform: rotate(-45deg) translate(3px, -7px);
+      }
+    }
+  }
+}
+.nav {
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  visibility: none;
+  opacity: 0.98;
+  &.open {
+    visibility: visible;
+  }
+  .nav-menu {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-color;
+    padding-right: 1rem;
+
+    transform: translateY(-100%);
+    list-style: none;
+    @include transition-ease;
+
+    &.open {
+      transform: translateY(0);
+    }
+    &__item {
+      transform: translateX(100vw);
+      @include transition-ease;
+
+      &.open {
+        transform: translateX(0);
+      }
+      &.active > a {
+        color: $secondary-color;
+      }
+    }
+    &__link {
+      display: inline-block;
+      padding: 2rem 0;
+      text-transform: uppercase;
+      font-size: 1.5rem;
+      font-weight: 400;
+      @include transition-ease;
+
+      &:hover {
+        color: $secondary-color;
+        @include transition-ease;
+      }
+    }
+  }
+}
+@for $i from 1 through 4 {
+  .nav-menu__item:nth-child(#{$i}) {
+    transition-delay: ($i * 0.1s) + 0.15s;
+  }
+}
